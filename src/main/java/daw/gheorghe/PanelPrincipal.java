@@ -2,6 +2,9 @@ package daw.gheorghe;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
@@ -9,7 +12,7 @@ import javax.swing.JTextArea;
  *
  * @author george
  */
-public class PanelPrincipal extends JPanel {
+public class PanelPrincipal extends JPanel implements ActionListener {
 
     private PanelBotones botonera;
     private JTextArea areaTexto;
@@ -31,5 +34,20 @@ public class PanelPrincipal extends JPanel {
 
         this.add(areaTexto, BorderLayout.NORTH);
         this.add(botonera, BorderLayout.SOUTH);
+
+        for (JButton boton : this.botonera.getGrupoBotones()) {
+            boton.addActionListener(this);
+        }
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent ae) {
+        Object o = ae.getSource();
+
+        if (o instanceof JButton) {
+            System.out.println(((JButton) o).getText());
+            areaTexto.setText(((JButton) o).getText());
+        }
     }
 }
